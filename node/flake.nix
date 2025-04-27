@@ -6,8 +6,8 @@
   outputs =
     { self, nixpkgs }:
     let
-      nodeVersion = "20";
-      pnpmVersion = "9"; # Change this to update the whole stack
+      nodeVersion = "22";
+      pnpmVersion = "10"; # Change this to update the whole stack
 
       supportedSystems = [
         "x86_64-linux"
