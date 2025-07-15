@@ -1,12 +1,12 @@
 {
-  description = "Flake for golang development";
+  description = "A nix flake-based development environment for Go 1.24";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
   outputs =
     { self, nixpkgs }:
     let
-      goVersion = "23"; # Change this to update the whole stack
+      goVersion = "24"; # Change this to update the whole stack
 
       supportedSystems = [
         "x86_64-linux"
@@ -29,7 +29,9 @@
 
     in
     {
-      overlays.default = final: prev: { go = final."go_1_${goVersion}"; };
+      overlays.default = final: prev: {
+        go = final."go_1_${goVersion}";
+      };
 
       devShells = forEachSystem (
         { pkgs }:
@@ -37,13 +39,13 @@
           default = pkgs.mkShell {
             packages = with pkgs; [
               go
-              gopls
+              gopls # Language server
               gotools # official go tools
               go-tools # https://staticcheck.dev/
-              golangci-lint
-              impl
-              gotests
-              gomodifytags
+              golangci-lint # Linters runner
+
+              impl # Generate method stubs for implementing an interface
+              gotests # Generate Go tests
               delve # debugger
             ];
           };
