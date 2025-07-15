@@ -1,5 +1,5 @@
 {
-  description = "Flake with node and pnpm setup";
+  description = "A nix flake-based development environment for Node.js with pnpm";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -7,7 +7,7 @@
     { self, nixpkgs }:
     let
       nodeVersion = "22";
-      pnpmVersion = "10"; # Change this to update the whole stack
+      pnpmVersion = "10";
 
       supportedSystems = [
         "x86_64-linux"
