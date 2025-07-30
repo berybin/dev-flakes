@@ -17,6 +17,11 @@
           path = ./node;
           description = "Node development.";
         };
+
+        buildroot = {
+          path = ./buildroot;
+          description = "buildroot development.";
+        };
       };
 
     };
