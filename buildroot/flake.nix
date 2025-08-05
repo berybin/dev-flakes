@@ -38,37 +38,50 @@
             (pkgs.buildFHSEnv {
               name = "buildroot";
               targetPkgs =
-                pkgs: with pkgs; [
-                  pkg-config
-                  pkgsCross.aarch64-multiplatform.gccStdenv.cc
+                pkgs:
+                (
+                  with pkgs;
+                  [
+                    pkg-config
 
-                  which
-                  gnused
-                  gnumake
-                  binutils
-                  diffutils
-                  gcc
-                  gnupatch
-                  gzip
-                  bzip2
-                  perl
-                  gnutar
-                  cpio
-                  unzip
-                  rsync
-                  file
-                  bc
-                  findutils
-                  gawk
-                  wget
+                    # NOTE: change this to your target platform. Not actually sure this is needed.
+                    pkgsCross.aarch64-multiplatform.gccStdenv.cc
+                    # pkgsCross.raspberryPi.gccStdenv.cc
 
-                  # optional
-                  python3Minimal
-                  ncurses.dev
+                    # NOTE: this is needed for c lib crypt stuff.
+                    # glibc doesn't provide crpyt functionality in NixOS, it has to be specifically added by libxcrpyt.
+                    # libxcrpyt had build errors, but the libxcrypt-legacy version actually produced an image
+                    libxcrypt-legacy
 
-                  asciidoc
-                  w3m
-                ];
+                    which
+                    gnused
+                    gnumake
+                    binutils
+                    diffutils
+                    (lib.hiPrio gcc)
+                    gnupatch
+                    gzip
+                    bzip2
+                    perl
+                    gnutar
+                    cpio
+                    unzip
+                    rsync
+                    file
+                    bc
+                    findutils
+                    gawk
+                    wget
+
+                    # optional
+                    python3Minimal
+                    ncurses.dev
+
+                    # asciidoc
+                    # w3m
+                  ]
+                  ++ pkgs.linux.nativeBuildInputs
+                );
             }).env;
         }
       );
