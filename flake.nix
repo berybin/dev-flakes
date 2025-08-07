@@ -22,6 +22,11 @@
           path = ./buildroot;
           description = "buildroot development.";
         };
+
+        java = {
+          path = ./java;
+          description = "Java development";
+        };
       };
 
     };
