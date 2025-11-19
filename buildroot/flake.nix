@@ -34,8 +34,8 @@
         { pkgs }:
         let
           # we need to use pkgs.buildFHSEnv as find expects to be at /usr/bin/find as per https://buildroot.org/downloads/manual/manual.html#requirement-mandatory
-          buildrootFHSEnv =
-            (pkgs.buildFHSEnv {
+          buildrootFHSEnv = (
+            pkgs.buildFHSEnv {
               name = "buildroot";
               targetPkgs =
                 pkgs:
@@ -82,7 +82,8 @@
                   ]
                   ++ pkgs.linux.nativeBuildInputs
                 );
-            }).env;
+            }
+          );
         in
         {
           default = buildrootFHSEnv.overrideAttrs (oldAttrs: {
@@ -92,6 +93,8 @@
               pkgs.coreutils
               pkgs.gnugrep
               pkgs.gawk
+
+              buildrootFHSEnv
             ];
 
             shellHook = ''
