@@ -67,6 +67,11 @@
                 which
               ]
             );
+
+            # fix some compilation warnings preventing a build
+            profile = ''
+              export NIX_HARDENING_ENABLE=""
+            '';
           };
 
         in
@@ -79,8 +84,12 @@
             ];
 
             shellHook = ''
-              echo "✅ Direnv loaded!"
-              echo "👷🔨 Run 'nix develop .#br' to enter the Buildroot FHS environment."
+              echo "====================================================================="
+              echo
+              echo " ✅ Direnv loaded!"
+              echo " 👷🔨 Run 'nix develop .#br' to enter the Buildroot FHS environment. "
+              echo
+              echo "====================================================================="
             '';
           };
         }
