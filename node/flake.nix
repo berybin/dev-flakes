@@ -6,7 +6,7 @@
   outputs =
     { self, nixpkgs }:
     let
-      nodeVersion = "22";
+      nodeVersion = "24";
       pnpmVersion = "10";
 
       supportedSystems = [
